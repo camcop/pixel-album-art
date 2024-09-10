@@ -6,10 +6,12 @@ from typing import Union
 from config import IMAGE_DIR, INPUT_IMAGE, OUTPUT_IMAGE
 from convert import convert, resize
 from write_to_board import copy_file, create_or_update_log
+from logger_util import log_function_call
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+@log_function_call
 def manual_upload(filename: str, width: int, height: int, format: str) -> None:
     """
     Manually uploads an image by resizing it to the specified dimensions,

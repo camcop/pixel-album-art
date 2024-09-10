@@ -3,10 +3,12 @@ import logging
 import shutil
 
 from config import BOARD_DRIVE_LETTER, LOG_FILENAME
+from logger_util import log_function_call
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+@log_function_call
 def resolve_board_path(path: str) -> str:
     """
     Resolves the full path on the board by combining the drive letter with the provided path.
@@ -19,6 +21,7 @@ def resolve_board_path(path: str) -> str:
     """
     return os.path.join(f'{BOARD_DRIVE_LETTER}', path)
 
+@log_function_call
 def copy_file(source: str, destination_path: str) -> str:
     """
     Copies a file from the source location to the specified destination on the board.
@@ -46,6 +49,7 @@ def copy_file(source: str, destination_path: str) -> str:
 
     return dest
 
+@log_function_call
 def write_file(destination_path: str) -> None:
     """
     Creates or overwrites a file at the specified destination on the board.
@@ -68,6 +72,7 @@ def write_file(destination_path: str) -> None:
     except Exception as e:
         logger.error(f'Unexpected error occurred while writing to the file: {e}')
 
+@log_function_call
 def append(destination_path: str, text: str) -> None:
     """
     Appends text to the specified file on the board.
@@ -91,6 +96,7 @@ def append(destination_path: str, text: str) -> None:
     except Exception as e:
         logger.error(f'Unexpected error occurred while appending to the file: {e}')
 
+@log_function_call
 def create_or_update_log(text: str) -> None:
     """
     Creates a log file if it doesn't exist and appends the specified text.

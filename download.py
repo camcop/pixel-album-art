@@ -2,24 +2,16 @@ import requests
 import logging
 import urllib.request
 import json
+from typing import Optional, Tuple
 
 from config import TIMEOUT_S, LASTFM_URL, LASTFM_PUBLIC_API_KEY
+from logger_util import log_function_call
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-def fetch_current_album_art(session, api_key, user):
-    url = f'{LASTFM_URL}&user={user}&api_key={LASTFM_PUBLIC_API_KEY}&format=json'
-    response = session.get(url, timeout=TIMEOUT_S)
-    if response.status_code == 200:
-        data = response.json()
-        track = data['recenttracks']['track'][0]
-        if 'image' in track:
-            return track['image'][3]['#text']
-    return None
-
-
-def fetch_last_played(session, api_key, user):
+@log_function_call
+def fetch_last_played(session: requests.Session, api_key: str, user: str) -> Optional[Tuple[Optional[str], Optional[str], Optional[str], Optional[str]]]:
     url = f'{LASTFM_URL}&user={user}&api_key={LASTFM_PUBLIC_API_KEY}&format=json'
     logger.info("Fetching last played track info from Last.fm API.")
     logger.debug(f"Constructed URL: {url}")
@@ -28,7 +20,6 @@ def fetch_last_played(session, api_key, user):
         response.raise_for_status()  # Raise an error for bad responses
         logger.info("Successfully fetched data from Last.fm API.")
 
-        # Parse the response JSON
         obj = response.json()
         recent_tracks = obj.get('recenttracks', {}).get('track', [])
 
@@ -51,7 +42,8 @@ def fetch_last_played(session, api_key, user):
     return None, None, None, None
 
 
-def download_cover(session, image_url, filename):
+@log_function_call
+def download_cover(session: requests.Session, image_url: str, filename: str) -> Optional[str]:
     logger.info(f"Attempting to download image from: {image_url}")
     response = session.get(image_url, timeout=TIMEOUT_S)
     if response.status_code == 200:
@@ -63,5 +55,3 @@ def download_cover(session, image_url, filename):
     else:
         logger.error(f"Failed to download image from {image_url}, status code: {response.status_code}")
         return None
-
-

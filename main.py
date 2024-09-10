@@ -83,8 +83,7 @@ def main():
         if image_url_api == image_url:
             logger.debug("image hasn't changed")
             continue
-        else:
-            image_url = image_url_api
+        image_url = image_url_api
 
         try:
             response = requests.get(image_url, timeout=REQUEST_TIMEOUT_S)

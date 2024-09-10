@@ -5,3 +5,8 @@ __pycache__/
 .env
 .idea/
 .vscode/
+*.jpeg
+*.jpg
+*.png
+*.bmp
+*.gif

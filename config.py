@@ -8,3 +8,5 @@ MATRIX_HEIGHT = 64
 
 LOOP_SLEEP_S = 10
 REQUEST_TIMEOUT_S = 10
+
+LOG_FILENAME = 'pixel-album-art.log'

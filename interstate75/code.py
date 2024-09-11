@@ -4,9 +4,7 @@ import displayio
 import framebufferio
 import rgbmatrix
 
-LOG_FILENAME = 'log.txt'
 OUTPUT_IMAGE = 'art.bmp'
-UPDATE_INTERVAL_S = 5
 DISPLAY_TIMEOUT_S = 600
 
 def update_display():
@@ -40,45 +38,11 @@ def update_display():
 
     # Set the root group to the update_display
     display.root_group = group
+    return time.time()
 
 # Main loop
-update_display()
-
-try:
-    with open(LOG_FILENAME, 'r', encoding='utf-8') as f:
-        current = f.readline()
-except (FileNotFoundError, OSError) as e:
-    print('Exception reading log file:', str(e))
-    current = ''
-
-# initialise start time for turning off display
-now = time.time()
-#print(now)
-
-current = ''
+now = update_display()
 
 while True:
-
-    time.sleep(UPDATE_INTERVAL_S)
-
-    # check log file for new art
-    try:
-        with open(LOG_FILENAME, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-            last_uploaded = lines[-1] if lines else None
-            print(last_uploaded)
-    except (FileNotFoundError, OSError) as e:
-        print('Error reading log file:', str(e))
-        continue
-
-    # if new art, update display
-    if last_uploaded != current:
-        update_display()
-        current = last_uploaded
-        now = time.time()
-        print(now)
-    print(time.time() - now)
-
-    # if x time has passed without new art, turn off display
     if (time.time() - now) >= DISPLAY_TIMEOUT_S:
         displayio.release_displays()

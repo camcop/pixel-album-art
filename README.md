@@ -82,8 +82,8 @@ The project relies on a few external libraries, listed in `requirements.txt`:
 
 ## Inspiration and resources
 
-This project incorporates code from the [lastfm-user-data-api](https://github.com/hankhank10/lastfm-user-data-api/tree/master) project by hankhank10.
+This project incorporates code from and was inspired by [music-screen-api](https://github.com/hankhank10/music-screen-api) by hankhank10.
 
-This project was inspired by my previous project NowPlaying (which displays the currently playing track on a Waveshare e-ink display), as well as a [similar project on reddit](https://www.reddit.com/r/raspberry_pi/comments/ziz4hk/my_64x64_rgb_led_matrix_album_art_display_pi_3b/).
+It was also inspired by my previous project NowPlaying (which displays the currently playing track on a Waveshare e-ink display), as well as a [similar project on reddit](https://www.reddit.com/r/raspberry_pi/comments/ziz4hk/my_64x64_rgb_led_matrix_album_art_display_pi_3b/).
 
 To understand how to use the Last.fm API for fetching album art, refer to the [Last.fm API documentation](https://www.last.fm/api).

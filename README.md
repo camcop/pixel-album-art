@@ -1,4 +1,7 @@
-# README
+# pixel-album-art
+
+![gif](/static/demo.gif)
+
 
 ## Overview
 
